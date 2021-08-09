@@ -45,28 +45,27 @@ class AudioDemuxerDecoder
 protected:
   AVFormatContext* mFormatContext;
   AVCodecContext* mDecoderContext;
-  int mAudioStreamIndex;
+  AVStream* mAudioStream;
+  std::string mSrcFilename;
+  int mStreamIndex;
   AVFrame* mFrame;
   AVPacket* mPacket;
-  std::string mSourcePath;
   IDecoderOutput* mDecoderOutput;
 
 public:
-  AudioDemuxerDecoder(std::string path, IDecoderOutput* pWriter);
+  AudioDemuxerDecoder(std::string srcFilename, IDecoderOutput* pDecoderOutput);
   virtual ~AudioDemuxerDecoder();
 
 protected:
-  int outputAudioFrame(AVFrame* aFrame);
-  int decodePacket(const AVPacket* aPacket, AVFrame*& aFrame);
-  int openCodec(enum AVMediaType type);
+  int decodePacket(const AVPacket* packet);
+  int openCodec(void);
 
 public:
-  std::string getFormatFromSampleFormat( enum AVSampleFormat sampleFormat );
   bool getDecoderOutputFormat(enum AVSampleFormat& sampleFormat, int& samplingRate, int& numOfChannels);
   bool demux(void);
   bool setupDecoder(void);
   bool doDecodePacket(void);
-  bool terminateDecoder(void);
+  void finalizeDecoder(void);
   void close(void);
 };
 

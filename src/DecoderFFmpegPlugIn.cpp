@@ -123,7 +123,7 @@ void DecoderFFmpeg::process(void)
         //doProcess( esBuf, outBuf );
         bResult = decoder.doDecodePacket();
       }
-      decoder.terminateDecoder();
+      decoder.finalizeDecoder();
     }
   }
 #if 0
