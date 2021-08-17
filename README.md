@@ -34,7 +34,7 @@ $ cd FFmpeg
 $ ./configure --prefix=../ffmpeg-sdk --enable-shared --enable-pthreads --enable-hardcoded-tables --cc=clang --host-cflags="-fPIC" --disable-asm --host-ldflags= --enable-ffplay --enable-libmp3lame --enable-libopus --enable-libsnappy --enable-libtheora --enable-libvorbis --enable-libvpx  --enable-lzma --enable-opencl
 $ make -j 4
 $ make install
-$ export export LD_LIBRARY_PATH=$HOME/work/ffmpeg-sdk/lib:$HOME/work/audioframework/lib
+$ export LD_LIBRARY_PATH=$HOME/work/ffmpeg-sdk/lib:$HOME/work/audioframework/lib
 ```
 
 ### For MacOS

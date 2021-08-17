@@ -28,7 +28,7 @@ DecoderFFmpeg::DecoderFFmpeg():IDecoder(), mFormat( AudioFormat::ENCODING::COMPR
 {
   mParamKeyRoot = "decoder.ffmpeg_"+std::to_string(mInstanceCount++);
 
-  ParameterManager* pParams = ParameterManager::getManager();
+  std::shared_ptr<ParameterManager> pParams = ParameterManager::getManager().lock();
   ParameterManager::CALLBACK callback = [&](std::string key, std::string value){
     if( key ==  mParamKeyRoot+".path"){
       std::cout << "[DecoderFFmpeg][ParamerManager] path=" << value << std::endl;
@@ -44,7 +44,7 @@ DecoderFFmpeg::DecoderFFmpeg():IDecoder(), mFormat( AudioFormat::ENCODING::COMPR
 DecoderFFmpeg::~DecoderFFmpeg()
 {
   stop();
-  ParameterManager* pParams = ParameterManager::getManager();
+  std::shared_ptr<ParameterManager> pParams = ParameterManager::getManager().lock();
   pParams->unregisterCallback(mCallbackId);
   mCallbackId = 0;
   close();
